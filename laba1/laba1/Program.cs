@@ -20,7 +20,7 @@
     static float gx(float x)
     {
         float result = (float)(Math.Pow(2, x) + 10) / 5;
-        return (float)(Math.Sqrt(result));
+        return (float)Math.Sqrt(result);
     }
 
     static float dgx(float x)
@@ -69,19 +69,19 @@
             float dx = y1 / y2;
             x -= dx;
 
-            Console.WriteLine($"Iter {iterations}: Result {x}");
+            Console.WriteLine($"Итерация №{iterations}, x = {x}");
 
             iterations++;
 
             if (Math.Abs(dx) < eps)
             {
-                Console.WriteLine($"Итерации: {iterations}, ответ: {x:0.00000000}\n");
+                Console.WriteLine($"Решение x = {x:0.000000} найдено за {iterations} итераций\n");
                 break;
             }
         }
     }
 
-    static void SimpleIterMethod(float a, float b) // Не работает ((
+   /*  static void SimpleIterMethod(float a, float b) // Не работает ((
     {
         float x1;
         float x0 = a;
@@ -112,7 +112,7 @@
         {
             Console.WriteLine($"Решение x = {x1:0.000000} найдено за {iterations} итераций\n");
         }
-    }
+    } */
 
     static void HordeMethod(float a, float b)
     {
@@ -124,38 +124,26 @@
             b = a - (a - b) * fx(a) / (fx(a) - fx(b));
             Console.WriteLine($"Итерация №{iterations}, x = {b}");
         }
-        Console.WriteLine($"Количество итераций: {iterations}, x = {b}\n");
+        Console.WriteLine($"Решение x = {b:0.000000} найдено за {iterations} итераций\n");
     }
 
-   /*  static void iter()
+    static void SimpleIterMethod(float a, float b)
     {
-        float l = 7;
-        float r = 10;
-        float c;
-
-        do
+        int iterations = 0;
+        while(Math.Abs(a-b) > eps && iterations < 1000)
         {
-            c = l + (r - l) / 2;
-
-            if (fx(l) * fx(c) > 0)
-            {
-                l = c;
-            }
-            else
-            {
-                r = c;
-            }
-
-        } while (Math.Abs(fx(c)) > eps);
-
-        Console.WriteLine(c);
-    } */
-
+            iterations++;
+            b = a;
+            a = a - fx(a) / dfx(a);
+            Console.WriteLine($"Итерация №{iterations}, x = {a}");
+        }
+        Console.WriteLine($"Решение x = {a:0.000000} найдено за {iterations} итераций\n");
+    }
 
     static void Main(string[] args)
     {
         float a = 7;
-        float b = 10;
+        float b = 9;
 
         Console.WriteLine($"Заданный отрезок: [{a}; {b}]");
 
@@ -169,6 +157,5 @@
 
         Console.WriteLine("Метод хорд");
         HordeMethod(a, b);
-
     }
 }
