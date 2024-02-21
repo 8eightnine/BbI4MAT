@@ -1,7 +1,5 @@
 ﻿class Program
 {
-    static float x0 = 8;
-
     static float eps = 1e-3f;
     
     static float fx(float x)
@@ -32,76 +30,61 @@
         return result;
     }
 
-    // Проверка изменения знака первой и второй производных на интервале [a, b]
-    static bool CheckSignChangeOnInterval(float a, float b)
-    {
-        // Проверяем знаки первой производной на концах интервала
-        if ( (Math.Sign(dfx(a)) == Math.Sign(dfx(a))) && (Math.Sign(dfx(a)) == Math.Sign(dfx(a))) )
-        {
-            Console.WriteLine("Знаки первой производной на концах интервала совпадают.");
-            
-            // Проверяем знаки второй производной на концах интервала
-            if ((Math.Sign(ddfx(a)) == Math.Sign(ddfx(a))) && (Math.Sign(ddfx(a)) == Math.Sign(ddfx(a))))
-            {
-                Console.WriteLine("Знаки второй производной на концах интервала совпадают.");
-                return true;
-            }
-        }
-        // Возможно надо будет доделать (проверка на всем интервале, но очень неэффективно)
-
-        return false;
-    }
-
     static void NewtonMethod(float a, float b)
     {
-        //float x = val; // конкретно левый и правый
         float x = 0;
 
-        if (CheckSignChangeOnInterval(a, b))
+        // Проверяем знаки первой производной на интервале
+        if ( (Math.Sign(dfx(a)) != Math.Sign(dfx(a))) && (Math.Sign(dfx(a)) != Math.Sign(dfx(a))) )
         {
+            return;
+        }
+        // Проверяем знаки второй производной на интервале
+        if ((Math.Sign(ddfx(a)) != Math.Sign(ddfx(a))) && (Math.Sign(ddfx(a)) != Math.Sign(ddfx(a))))
+        {
+            return;
+        }
 
-            if (fx(a) * ddfx(a) > 0) // если знаки функций совпадают
+        if (fx(a) * ddfx(a) > 0) // если знаки функций совпадают
+        {
+            x = a;
+        }
+        else if (fx(b) * ddfx(b) > 0) // если знаки функций совпадают
+        {
+            x = b;
+        }
+        else
+        {
+            Console.WriteLine("Ошибка: не соблюдается условие совпадаемости знаков f(x) и f''(x)\n");
+            return;
+        }
+
+        Console.WriteLine($"Начальное приближение равно: {x}");
+
+        int iterations = 1;
+
+        while (true)
+        {
+            float y1 = fx(x); float y2 = dfx(x);
+            float dx = y1 / y2;
+            x -= dx;
+
+            Console.WriteLine($"Iter {iterations}: Result {x}");
+
+            iterations++;
+
+            if (Math.Abs(dx) < eps)
             {
-                x = a;
-            }
-            else if (fx(b) * ddfx(b) > 0) // если знаки функций совпадают
-            {
-                x = b;
-            }
-            else
-            {
-                Console.WriteLine("Ошибка: не соблюдается условие совпадаемости знаков f(x) и f''(x)");
-                return;
-            }
-
-            Console.WriteLine($"Начальное приближение равно: {x}");
-
-            int iterations = 1;
-
-            while (true)
-            {
-                float y1 = fx(x); float y2 = dfx(x);
-                float dx = y1 / y2;
-                x -= dx;
-
-                Console.WriteLine($"Iter {iterations}: Result {x}");
-
-                iterations++;
-
-                if (Math.Abs(dx) < eps)
-                {
-                    Console.WriteLine($"Итерации: {iterations}, ответ: {x:0.00000000}");
-                    break;
-                }
+                Console.WriteLine($"Итерации: {iterations}, ответ: {x:0.00000000}\n");
+                break;
             }
         }
     }
 
-    static void SimpleIterMethod(float a) // Не работает ((
+    static void SimpleIterMethod(float a, float b) // Не работает ((
     {
         float x1;
         float x0 = a;
-        float dx = float.MaxValue;
         int iterations = 0;
         bool error = false;
 
@@ -123,11 +106,11 @@
 
         if (error)
         {
-            Console.WriteLine("Не удалось найти решение с заданной точностью за максимальное количество итераций.");
+            Console.WriteLine("Не удалось найти решение с заданной точностью за максимальное количество итераций.\n");
         }
         else
         {
-            Console.WriteLine($"Решение x = {x1:0.000000} найдено за {iterations} итераций");
+            Console.WriteLine($"Решение x = {x1:0.000000} найдено за {iterations} итераций\n");
         }
     }
 
@@ -141,10 +124,10 @@
             b = a - (a - b) * fx(a) / (fx(a) - fx(b));
             Console.WriteLine($"Итерация №{iterations}, x = {b}");
         }
-        Console.WriteLine($"Количество итераций: {iterations}, x = {b}");
+        Console.WriteLine($"Количество итераций: {iterations}, x = {b}\n");
     }
 
-    static void iter()
+   /*  static void iter()
     {
         float l = 7;
         float r = 10;
@@ -166,7 +149,7 @@
         } while (Math.Abs(fx(c)) > eps);
 
         Console.WriteLine(c);
-    }
+    } */
 
 
     static void Main(string[] args)
@@ -174,17 +157,18 @@
         float a = 7;
         float b = 10;
 
-        //Console.WriteLine($"Заданный отрезок: [{a}; {b}]");
-        //NewtonMethod(a, b);
+        Console.WriteLine($"Заданный отрезок: [{a}; {b}]");
+
+        Console.WriteLine("Метод Ньютона");
+        NewtonMethod(a, b);
         //NewtonMethod(a); //  решения для конкретно левого и правого концов отрезка
         //NewtonMethod(b);
 
-        //float c = 10;
-       // SimpleIterMethod(c);
+        Console.WriteLine("Метод простых итераций");
+        SimpleIterMethod(a, b);
 
-        iter();
-
-        //HordeMethod(a, b);
+        Console.WriteLine("Метод хорд");
+        HordeMethod(a, b);
 
     }
 }
