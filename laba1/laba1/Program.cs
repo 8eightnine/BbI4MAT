@@ -21,7 +21,15 @@
 
     static float gx(float x)
     {
-        return (float)(Math.Sqrt( (Math.Pow(2,x) + 10) / 5) );
+        float result = (float)(Math.Pow(2, x) + 10) / 5;
+        return (float)(Math.Sqrt(result));
+    }
+
+    static float dgx(float x)
+    {
+        float result = (float)(Math.Sqrt(5) * Math.Log(2) * Math.Pow(2, x - 1));
+        result = result / (float)(5 * Math.Sqrt(Math.Pow(2, x) + 10));
+        return result;
     }
 
     // Проверка изменения знака первой и второй производных на интервале [a, b]
@@ -91,62 +99,92 @@
 
     static void SimpleIterMethod(float a) // Не работает ((
     {
-        float x1 = a;
-        float x0;
+        float x1;
+        float x0 = a;
         float dx = float.MaxValue;
         int iterations = 0;
+        bool error = false;
 
-        while(Math.Pow(dx,2) > eps)
+        do
         {
-            x0 = x1;
             x1 = gx(x0);
-            dx = x1 - x0;
             iterations++;
+
+            if (Math.Abs(x1 - x0) >= eps && iterations == 1000)
+            {
+                error = true;
+                break;
+            }
+
+            x0 = x1;
             Console.WriteLine($"Итерация {iterations}, x = {x1}");
+
+        } while (Math.Abs(x0 - gx(x0)) > eps);
+
+        if (error)
+        {
+            Console.WriteLine("Не удалось найти решение с заданной точностью за максимальное количество итераций.");
         }
+        else
+        {
+            Console.WriteLine($"Решение x = {x1:0.000000} найдено за {iterations} итераций");
+        }
+    }
 
-        //do
-        //{
-        //    x1 = gx(x0);
-        //    iterations++;
+    static void HordeMethod(float a, float b)
+    {
+        int iterations = 0;
+        while (Math.Abs(b - a) > eps)
+        {
+            iterations++;
+            a = b - (b - a) * fx(b) / (fx(b) - fx(a));
+            b = a - (a - b) * fx(a) / (fx(a) - fx(b));
+            Console.WriteLine($"Итерация №{iterations}, x = {b}");
+        }
+        Console.WriteLine($"Количество итераций: {iterations}, x = {b}");
+    }
 
-        //    if (Math.Abs(x1 - x0) >= eps && iterations == 1000)
-        //    {
-        //        error = true;
-        //        break;
-        //    }
+    static void iter()
+    {
+        float l = 7;
+        float r = 10;
+        float c;
 
-        //    x0 = x1;
-        //    Console.WriteLine($"Итерация {iterations}, x = {x1}");
+        do
+        {
+            c = l + (r - l) / 2;
 
-        //} while (Math.Abs(x0 - gx(x0)) > eps);
-        
-        //if (error)
-        //{
-        //    Console.WriteLine("Не удалось найти решение с заданной точностью за максимальное количество итераций.");
-        //}
-        //else
-        //{
-        //    Console.WriteLine($"Решение x = {x1:0.000000} найдено за {iterations} итераций");
-        //}
+            if (fx(l) * fx(c) > 0)
+            {
+                l = c;
+            }
+            else
+            {
+                r = c;
+            }
+
+        } while (Math.Abs(fx(c)) > eps);
+
+        Console.WriteLine(c);
     }
 
 
-        
-    
-
     static void Main(string[] args)
     {
-        float a = -2;
-        float b = -1;
+        float a = 7;
+        float b = 10;
 
         //Console.WriteLine($"Заданный отрезок: [{a}; {b}]");
         //NewtonMethod(a, b);
         //NewtonMethod(a); //  решения для конкретно левого и правого концов отрезка
         //NewtonMethod(b);
 
-        float c = -2;
-        SimpleIterMethod(c);
+        //float c = 10;
+       // SimpleIterMethod(c);
+
+        iter();
+
+        //HordeMethod(a, b);
 
     }
 }
