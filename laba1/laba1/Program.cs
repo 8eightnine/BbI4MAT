@@ -1,6 +1,6 @@
 ﻿class Program
 {
-    static float eps = 1e-3f;
+    static float eps = 1e-5f;
     
     static float fx(float x)
     {
@@ -130,11 +130,17 @@
     static void SimpleIterMethod(float a, float b)
     {
         int iterations = 0;
+
+        float M = Math.Max(dfx(a), dfx(b));
+        float l = Math.Sign(dfx((a + b) / 2)) * M * -1;
+
+        a = (a + b) / 2;
+
         while(Math.Abs(a-b) > eps && iterations < 1000)
         {
             iterations++;
             b = a;
-            a = a - fx(a) / dfx(a);
+            a = a + fx(a) / l;
             Console.WriteLine($"Итерация №{iterations}, x = {a}");
         }
         Console.WriteLine($"Решение x = {a:0.000000} найдено за {iterations} итераций\n");
@@ -142,8 +148,8 @@
 
     static void Main(string[] args)
     {
-        float a = 7;
-        float b = 9;
+        float a = 1;
+        float b = 2;
 
         Console.WriteLine($"Заданный отрезок: [{a}; {b}]");
 
