@@ -1,70 +1,87 @@
 ﻿
-//namespace вычмат2
-//{
-//    internal class Program
-//    {
-//        static void part1()
-//        {
-//            float[,] A = {
-//            { 2.83333f, 5.0f, 1.0f },
-//            { 1.7f, 3.0f, 7.0f },
-//            { 8.0f, 1.0f, 1.0f }};
-//            float[] b = { 11.66666f, 13.4f, 18.0f };
+namespace вычмат2
+{
+    internal class Program
+    {
+        static void part1()
+        {
+            Console.WriteLine("|Задание 1|");
 
-//            float[] result = GaussMethod.GaussMethodSingleDivision(A, b);
-//            Console.WriteLine("Метод Гаусса");
-//            Console.WriteLine("Решение системы:");
-//            for (int i = 0; i < result.Length; i++)
-//            {
-//                Console.WriteLine($"x{i + 1} = {result[i]:F9}");
-//            }
+            float[,] A = {
+            { 2.83333f, 5.0f, 1.0f },
+            { 1.7f, 3.0f, 7.0f },
+            { 8.0f, 1.0f, 1.0f }};
+            float[] b = { 11.66666f, 13.4f, 18.0f };
 
-//            result = GaussMethod.GaussMethodRow(A, b);
-//            Console.WriteLine("Метод Гаусса с выбором главного элемента по строке(вариант 2)");
-//            Console.WriteLine("Решение системы:");
-//            for (int i = 0; i < result.Length; i++)
-//            {
-//                Console.WriteLine($"x{i + 1} = {result[i]:F9}");
-//            }
-//        }
+            float[] result = GaussMethod.SolveGaussMethod(A, b);
+            Console.WriteLine("Метод Гаусса");
+            Console.WriteLine("Решение системы:");
+            for (int i = 0; i < result.Length; i++)
+            {
+                Console.WriteLine($"x{i + 1} = {result[i]:F9}");
+            }
+            Console.WriteLine();
 
-//        static void part2()
-//        {
-//            float[,] A = {
-//            { 2, 15, 1, 1 },
-//            { 3, -1, 2, 20 },
-//            { 10, 1, 1, 1 },
-//            { 3, 2, 14, -2 }};
-//            float[] b = { 21, 27, 23, 20 };
+            result = GaussMethod.SolveGaussMethodRow(A, b);
+            Console.WriteLine("Метод Гаусса с выбором главного элемента по строке(вариант 2)");
+            Console.WriteLine("Решение системы:");
+            for (int i = 0; i < result.Length; i++)
+            {
+                Console.WriteLine($"x{i + 1} = {result[i]:F9}");
+            }
+            Console.WriteLine();
+        }
 
-//            float[] result = GaussMethod.SimpleIterations(A, b, epsilon:0.01f);
-//            Console.WriteLine("Метод Гаусса");
-//            Console.WriteLine("Решение системы:");
-//            for (int i = 0; i < result.Length; i++)
-//            {
-//                Console.WriteLine($"x{i + 1} = {result[i]:F9}");
-//            }
-//        }
-//            static void part3()
-//        {
-//            float[] a = { 0, 15, 1, 1 };   // коэф. нижней диагонали
-//            float[] b = { 3, -1, 2, 20 };  // коэф. главной диагонали
-//            float[] c = { 10, 1, 1, 0 };   // коэф. верхней диагонали
-//            float[] d = { 7, 8, 5 };       //вектор свободных членов системы уравнений
+        static void part2()
+        {
+            Console.WriteLine("|Задание 2|");
 
-//            float[] solution = TridiagonalMatrixSolver.Solve(a, b, c, d);
+            // Введите коэффициенты системы уравнений в виде матрицы a * x = b
+            float[,] A = {
+            { 2.0f, 15.0f, 1.0f, 1.0f },
+            { 3.0f, -1.0f, 2.0f, 20.0f },
+            { 10.0f, 1.0f, 1.0f, 1.0f },
+            { 3.0f, 2.0f, 14.0f, -2.0f }};
 
-//            Console.WriteLine("Решение:");
-//            for (int i = 0; i < solution.Length; i++)
-//            {
-//                Console.WriteLine($"x[{i}] = {solution[i]}");
-//            }
-//        }
-//        static void Main(string[] args)
-//        {
-//            part1();
-//            part2();
-//            part3();
-//        }
-//    }
-//}
+            float[] b = { 21.0f, 27.0f, 23.0f, 20.0f };
+
+            // Количество итераций
+            int iterations = 1000;
+
+            // Точность вычислений
+            float epsilon = 1e-3f;
+
+            float[] result = IterativeMethod.SolveIterativeMethod(A, b, epsilon, iterations);
+            for (int i = 0; i < result.Length; i++)
+            {
+                Console.WriteLine($"x{i + 1} = {result[i]:F9}");
+            }
+            Console.WriteLine();
+        }
+
+        static void part3()
+        {
+            Console.WriteLine("|Задание 3|");
+
+            float[] a = { 1, 1, 1, 1, 1, 1, 0 };   // коэф. верхней диагонали
+            float[] b = { 4, 4, 4, 4, 4, 4, 4 };   // коэф. главной диагонали
+            float[] c = { 0, 1, 1, 1, 1, 1, 1 };   // коэф. нижней диагонали
+            float[] d = { 1, 2, 3, 4, 5, 6, 7 };   //вектор свободных членов системы уравнений
+
+            float[] result = TridiagonalMatrixSolver.Solve(a, b, c, d);
+
+            Console.WriteLine("Решение системы:");
+            for (int i = 0; i < result.Length; i++)
+            {
+                Console.WriteLine($"x[{i}] = {result[i]:F4}");
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            part1();
+            part2();
+            part3();
+        }
+    }
+}

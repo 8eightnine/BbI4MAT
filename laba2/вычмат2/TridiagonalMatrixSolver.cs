@@ -3,53 +3,28 @@ namespace вычмат2
 {
     class TridiagonalMatrixSolver
     {
-        public static float[] Solve(float[] a, float[] b, float[] c, float[] d, float tolerance = 1e-10f, int maxIterations = 10000)
+        public static float[] Solve(float[] a, float[] b, float[] c, float[] d) // метод прогонки
         {
             int n = d.Length;
-            float[] x = new float[n];
-            float[] prev = new float[n];
-            bool converged = false;
+            float[] P = new float[n]; // Массив коэффициентов P
+            float[] Q = new float[n]; // Массив коэффициентов Q
+            float[] x = new float[n]; // Решение
 
-            for (int iteration = 0; iteration < maxIterations && !converged; iteration++)
+            // Прямой проход (вычисление коэффициентов P и Q)
+            P[0] = -a[0] / b[0];
+            Q[0] = d[0] / b[0];
+            for (int i = 1; i < n; i++)
             {
-                for (int i = 0; i < n; i++)
-                {
-                    float sum = 0.0f;
-
-                    if (i > 0)
-                    {
-                        sum += a[i] * x[i - 1];
-                    }
-
-                    if (i < n - 1)
-                    {
-                        sum += c[i] * prev[i + 1];
-                    }
-
-                    x[i] = (d[i] - sum) / b[i];
-
-                    // Для первой итерации предыдущее значение - это начальное приближение (0)
-                    if (iteration == 0)
-                    {
-                        prev[i] = x[i];
-                    }
-                }
-
-                converged = true;
-                for (int i = 0; i < n; i++)
-                {
-                    if (Math.Abs(x[i] - prev[i]) > tolerance)
-                    {
-                        converged = false;
-                        break;
-                    }
-                    prev[i] = x[i];
-                }
+                float denom = b[i] + c[i] * P[i - 1];
+                P[i] = -a[i] / denom;
+                Q[i] = (d[i] - c[i] * Q[i - 1]) / denom;
             }
 
-            if (!converged)
+            // Обратный проход (вычисление решения)
+            x[n - 1] = Q[n - 1];
+            for (int i = n - 2; i >= 0; i--)
             {
-                Console.WriteLine("Метод Зейделя не сошелся за заданное количество итераций.");
+                x[i] = P[i] * x[i + 1] + Q[i];
             }
 
             return x;
