@@ -1,6 +1,6 @@
 ﻿class Program
 {
-    static float eps = 1e-2f;
+    static float eps = 1e-10000000000f;
 
     static float fx(float x)
     {
@@ -35,12 +35,12 @@
         float x = 0;
 
         // Проверяем знаки первой производной на интервале
-        if ((Math.Sign(dfx(a)) != Math.Sign(dfx(a))) && (Math.Sign(dfx(a)) != Math.Sign(dfx(a))))
+        if ((Math.Sign(dfx(a)) != Math.Sign(dfx(b))) && (Math.Sign(dfx(a)) != Math.Sign(dfx(b))))
         {
             return;
         }
         // Проверяем знаки второй производной на интервале
-        if ((Math.Sign(ddfx(a)) != Math.Sign(ddfx(a))) && (Math.Sign(ddfx(a)) != Math.Sign(ddfx(a))))
+        if ((Math.Sign(ddfx(a)) != Math.Sign(ddfx(b))) && (Math.Sign(ddfx(a)) != Math.Sign(ddfx(b))))
         {
             return;
         }
@@ -112,8 +112,8 @@
 
     static void Main(string[] args)
     {
-        float a = 8;
-        float b = 9;
+        float a = 1;
+        float b = 2;
 
         Console.WriteLine($"Заданный отрезок: [{a}; {b}]");
 
@@ -125,7 +125,7 @@
         Console.WriteLine("Метод простых итераций");
 
         float M = Math.Max(dfx(a), dfx(b));
-        SimpleIterMethod((float)8.1, M);
+        SimpleIterMethod((float)1.1, M);
 
         Console.WriteLine("Метод хорд");
         HordeMethod(b, a);
