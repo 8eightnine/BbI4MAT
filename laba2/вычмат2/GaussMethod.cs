@@ -11,7 +11,7 @@ namespace вычмат2
             for (int i = 0; i < n - 1; ++i)
             {
                 // Проверка на ноль текущего элемента диагонали
-                if (Math.Abs(matrix[i, i]) < 1E-7)
+                if (Math.Abs(matrix[i, i]) < 1e-7f)
                 {
                     throw new Exception("Деление на ноль в методе Гаусса.");
                 }
@@ -68,7 +68,7 @@ namespace вычмат2
                 // Обмен строк
                 SwapRows(matrix, b, i, maxRow);
 
-                if (Math.Abs(matrix[i, i]) < float.Epsilon)
+                if (Math.Abs(matrix[i, i]) < 1e-7f)
                 {
                     throw new Exception("Деление на ноль в методе Гаусса с выбором главного элемента по столбцу.");
                 }
@@ -89,12 +89,12 @@ namespace вычмат2
             float[] solution = new float[n];
             for (int i = n - 1; i >= 0; i--)
             {
-                float sum = 0;
+                double sum = 0;
                 for (int j = i + 1; j < n; j++)
                 {
                     sum += matrix[i, j] * solution[j];
                 }
-                solution[i] = (b[i] - sum) / matrix[i, i];
+                solution[i] = (float)(b[i] - sum) / matrix[i, i];
             }
 
             return solution;
