@@ -25,7 +25,7 @@ namespace вычмат2
             }
             Console.WriteLine();
 
-            result = GaussMethod.SolveGaussMethodRow(A, b);
+            result = GaussMethod.SolveGaussMethodColumn(A, b);
             Console.WriteLine("Метод Гаусса с выбором главного элемента по строке(вариант 2)");
             Console.WriteLine("Решение системы:");
             for (int i = 0; i < result.Length; i++)
@@ -86,7 +86,7 @@ namespace вычмат2
         static void Main(string[] args)
         {
             part1();
-            part2();
+            //part2();
             part3();
         }
     }

@@ -42,7 +42,7 @@ namespace вычмат2
             return solution;
         }
 
-        public static float[] SolveGaussMethodRow(float[,] originalMatrix, float[] originalB)
+        public static float[] SolveGaussMethodColumn(float[,] originalMatrix, float[] originalB)
         {
             int n = originalB.Length;
             float[,] matrix = new float[n, n];
@@ -50,30 +50,32 @@ namespace вычмат2
             Array.Copy(originalB, b, n);
             Array.Copy(originalMatrix, matrix, n * n);
 
+            int[] columnIndices = Enumerable.Range(0, n).ToArray();
+
             for (int i = 0; i < n; i++)
             {
-                // Поиск строки с максимальным по модулю элементом в столбце
-                int maxRow = i;
+                // Search for the column with the maximum absolute value in the row
+                int maxColumn = i;
                 float maxVal = Math.Abs(matrix[i, i]);
                 for (int k = i + 1; k < n; k++)
                 {
-                    float absVal = Math.Abs(matrix[k, i]);
+                    float absVal = Math.Abs(matrix[i, k]);
                     if (absVal > maxVal)
                     {
-                        maxRow = k;
+                        maxColumn = k;
                         maxVal = absVal;
                     }
                 }
 
-                // Обмен строк
-                SwapRows(matrix, b, i, maxRow);
+                // Swap columns
+                SwapColumns(matrix, columnIndices, i, maxColumn);
 
                 if (Math.Abs(matrix[i, i]) < 1e-7f)
                 {
-                    throw new Exception("Деление на ноль в методе Гаусса с выбором главного элемента по столбцу.");
+                    throw new Exception("Division by zero in Gauss method with main element selection by row.");
                 }
 
-                // Приведение матрицы к треугольному виду
+                // Transform the matrix to upper triangular form
                 for (int k = i + 1; k < n; k++)
                 {
                     float coeff = matrix[k, i] / matrix[i, i];
@@ -85,33 +87,33 @@ namespace вычмат2
                 }
             }
 
-            // Обратный ход
+            // Back substitution
             float[] solution = new float[n];
             for (int i = n - 1; i >= 0; i--)
             {
                 double sum = 0;
                 for (int j = i + 1; j < n; j++)
                 {
-                    sum += matrix[i, j] * solution[j];
+                    sum += matrix[i, j] * solution[columnIndices[j]];
                 }
-                solution[i] = (float)(b[i] - sum) / matrix[i, i];
+                solution[columnIndices[i]] = (float)(b[i] - sum) / matrix[i, i];
             }
 
             return solution;
         }
 
-        private static void SwapRows(float[,] matrix, float[] b, int row1, int row2)
+        private static void SwapColumns(float[,] matrix, int[] columnIndices, int column1, int column2)
         {
-            int n = matrix.GetLength(1);
-            for (int col = 0; col < n; col++)
+            int n = matrix.GetLength(0);
+            for (int row = 0; row < n; row++)
             {
-                float temp = matrix[row1, col];
-                matrix[row1, col] = matrix[row2, col];
-                matrix[row2, col] = temp;
+                float temp = matrix[row, column1];
+                matrix[row, column1] = matrix[row, column2];
+                matrix[row, column2] = temp;
             }
-            float tempB = b[row1];
-            b[row1] = b[row2];
-            b[row2] = tempB;
+            int tempIndex = columnIndices[column1];
+            columnIndices[column1] = columnIndices[column2];
+            columnIndices[column2] = tempIndex;
         }
     }
 }

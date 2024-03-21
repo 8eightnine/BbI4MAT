@@ -129,62 +129,75 @@ namespace vchmat3
         //метод Гаусса без выбора главного элемента
         private double[] gauss(double[,] matrix, double[] y, int n)
         {
-            double[] x;
-            x = new double[n];
+            n = y.Length;
+            double[] b = new double[n];
+            Array.Copy(y, b, n);
+            Array.Copy(matrix, matrix, n * n);
 
-            // переставим строки так, чтобы диагоналные элементы были не 0
-            for (int ind = 0; ind < n; ind++)
+            int[] columnIndices = Enumerable.Range(0, n).ToArray();
+
+            for (int i = 0; i < n; i++)
             {
-                int numb = ind;
-                for (int i = 1; i < n; i++)
-                    if (matrix[i, ind] != 0)
-                        numb = i;
-
-                //перестановка строк,ставим на позицию ind строку, в которой ind элемент max
-                if (numb != ind)
+                // Search for the column with the maximum absolute value in the row
+                int maxColumn = i;
+                double maxVal = Math.Abs(matrix[i, i]);
+                for (int k = i + 1; k < n; k++)
                 {
-                    //идем по строке
-                    for (int i = 0; i < n; i++)
+                    double absVal = Math.Abs(matrix[i, k]);
+                    if (absVal > maxVal)
                     {
-                        double tempp = matrix[ind, i];
-                        matrix[ind, i] = matrix[numb, i];
-                        matrix[numb, i] = tempp;
+                        maxColumn = k;
+                        maxVal = absVal;
                     }
+                }
 
-                    double temp = y[ind];
-                    y[ind] = y[numb];
-                    y[numb] = temp;
+                // Swap columns
+                SwapColumns(matrix, columnIndices, i, maxColumn);
+
+                if (Math.Abs(matrix[i, i]) < 1e-7f)
+                {
+                    throw new Exception("Division by zero in Gauss method with main element selection by row.");
+                }
+
+                // Transform the matrix to upper triangular form
+                for (int k = i + 1; k < n; k++)
+                {
+                    double coeff = matrix[k, i] / matrix[i, i];
+                    for (int j = i; j < n; j++)
+                    {
+                        matrix[k, j] -= matrix[i, j] * coeff;
+                    }
+                    b[k] -= b[i] * coeff;
                 }
             }
 
-            //идем по переменным
-            for (int ind = 0; ind < n; ind++)
-            {
-                //приведем расширенную матрицу к ступенчатому виду
-                //идем по строкам,начиная со следующей после выбранной
-                for (int i = ind + 1; i < n; i++)
-                {
-                    double mult = -matrix[i, ind] / matrix[ind, ind];
-                    if (matrix[i, ind] != 0)
-                    {
-                        for (int j = ind; j < n; j++)
-                            matrix[i, j] += matrix[ind, j] * mult;
-                    }
-                    else
-                        continue;
-                    y[i] += y[ind] * mult;
-                }
-            }
-
-            //обратная подстановка
+            // Back substitution
+            double[] solution = new double[n];
             for (int i = n - 1; i >= 0; i--)
             {
-                x[i] = y[i] / matrix[i, i];
-                for (int j = 0; j < i; j++)
-                    y[j] = y[j] - matrix[j, i] * x[i];
+                double sum = 0;
+                for (int j = i + 1; j < n; j++)
+                {
+                    sum += matrix[i, j] * solution[columnIndices[j]];
+                }
+                solution[columnIndices[i]] = (b[i] - sum) / matrix[i, i];
             }
 
-            return x;
+            return solution;
+        }
+
+        private static void SwapColumns(double[,] matrix, int[] columnIndices, int column1, int column2)
+        {
+            int n = matrix.GetLength(0);
+            for (int row = 0; row < n; row++)
+            {
+                double temp = matrix[row, column1];
+                matrix[row, column1] = matrix[row, column2];
+                matrix[row, column2] = temp;
+            }
+            int tempIndex = columnIndices[column1];
+            columnIndices[column1] = columnIndices[column2];
+            columnIndices[column2] = tempIndex;
         }
 
         // Сглаживающй мнгочлен 1 степени

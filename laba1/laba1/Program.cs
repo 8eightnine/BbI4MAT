@@ -1,6 +1,6 @@
 ﻿class Program
 {
-    static float eps = 1e-10000000000f;
+    static float eps = 1e-45f;
 
     static float fx(float x)
     {
@@ -14,7 +14,7 @@
 
     static float ddfx(float x)
     {
-        return (float)Math.Pow(Math.Log(2), 2) * (float)Math.Pow(2, x) + 10;
+        return (float)Math.Pow(Math.Log(2), 2) * (float)Math.Pow(2, x) - 10;
     }
 
     static float gx(float x)
