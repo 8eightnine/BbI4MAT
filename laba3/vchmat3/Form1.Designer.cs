@@ -75,10 +75,10 @@ namespace vchmat3
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(35, 409);
+            this.button1.Location = new System.Drawing.Point(749, 478);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
+            this.button1.TabIndex = 1240;
             this.button1.Text = "Ввести";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -87,6 +87,8 @@ namespace vchmat3
             // 
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend1.IsDockedInsideChartArea = false;
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(13, 13);
@@ -96,35 +98,35 @@ namespace vchmat3
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.LabelForeColor = System.Drawing.Color.BlanchedAlmond;
             series1.Legend = "Legend1";
-            series1.LegendText = "Cглаживающий многочлен";
+            series1.LegendText = "Многочлен МНК";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(554, 336);
-            this.chart1.TabIndex = 2;
+            this.chart1.Size = new System.Drawing.Size(707, 675);
+            this.chart1.TabIndex = 200;
             this.chart1.Text = "chart1";
             this.chart1.Visible = false;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(35, 383);
+            this.textBox5.Location = new System.Drawing.Point(749, 452);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(75, 20);
-            this.textBox5.TabIndex = 8;
+            this.textBox5.TabIndex = 100;
             this.textBox5.Text = "5";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 367);
+            this.label1.Location = new System.Drawing.Point(746, 436);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(180, 13);
-            this.label1.TabIndex = 3;
+            this.label1.TabIndex = 300;
             this.label1.Text = "Введите количество аргументов i:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 367);
+            this.label2.Location = new System.Drawing.Point(746, 436);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 10;
@@ -134,7 +136,7 @@ namespace vchmat3
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(32, 383);
+            this.label4.Location = new System.Drawing.Point(746, 452);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 20);
             this.label4.TabIndex = 12;
@@ -144,7 +146,7 @@ namespace vchmat3
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(32, 414);
+            this.label3.Location = new System.Drawing.Point(746, 483);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(27, 20);
             this.label3.TabIndex = 11;
@@ -153,71 +155,71 @@ namespace vchmat3
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 583);
+            this.button2.Location = new System.Drawing.Point(726, 652);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(134, 36);
-            this.button2.TabIndex = 13;
+            this.button2.TabIndex = 130;
             this.button2.Text = "МНК";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(65, 414);
+            this.textBox1.Location = new System.Drawing.Point(779, 483);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(49, 20);
-            this.textBox1.TabIndex = 14;
+            this.textBox1.TabIndex = 6;
             this.textBox1.Text = "18";
             this.textBox1.Visible = false;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(65, 383);
+            this.textBox2.Location = new System.Drawing.Point(779, 452);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(49, 20);
-            this.textBox2.TabIndex = 15;
+            this.textBox2.TabIndex = 1;
             this.textBox2.Text = "-2";
             this.textBox2.Visible = false;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(120, 383);
+            this.textBox3.Location = new System.Drawing.Point(834, 452);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(49, 20);
-            this.textBox3.TabIndex = 16;
+            this.textBox3.TabIndex = 2;
             this.textBox3.Text = "0";
             this.textBox3.Visible = false;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(175, 383);
+            this.textBox4.Location = new System.Drawing.Point(889, 452);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(49, 20);
-            this.textBox4.TabIndex = 17;
+            this.textBox4.TabIndex = 3;
             this.textBox4.Text = "2";
             this.textBox4.Visible = false;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(230, 383);
+            this.textBox6.Location = new System.Drawing.Point(944, 452);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(49, 20);
-            this.textBox6.TabIndex = 18;
+            this.textBox6.TabIndex = 4;
             this.textBox6.Text = "3";
             this.textBox6.Visible = false;
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(285, 383);
+            this.textBox7.Location = new System.Drawing.Point(999, 452);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(49, 20);
-            this.textBox7.TabIndex = 19;
+            this.textBox7.TabIndex = 5;
             this.textBox7.Text = "4";
             this.textBox7.Visible = false;
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(340, 383);
+            this.textBox8.Location = new System.Drawing.Point(1054, 452);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(49, 20);
             this.textBox8.TabIndex = 20;
@@ -225,7 +227,7 @@ namespace vchmat3
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(395, 383);
+            this.textBox9.Location = new System.Drawing.Point(1109, 452);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(49, 20);
             this.textBox9.TabIndex = 21;
@@ -233,7 +235,7 @@ namespace vchmat3
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(395, 414);
+            this.textBox10.Location = new System.Drawing.Point(1109, 483);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(49, 20);
             this.textBox10.TabIndex = 27;
@@ -241,7 +243,7 @@ namespace vchmat3
             // 
             // textBox11
             // 
-            this.textBox11.Location = new System.Drawing.Point(340, 414);
+            this.textBox11.Location = new System.Drawing.Point(1054, 483);
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(49, 20);
             this.textBox11.TabIndex = 26;
@@ -249,43 +251,43 @@ namespace vchmat3
             // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(285, 414);
+            this.textBox12.Location = new System.Drawing.Point(999, 483);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(49, 20);
-            this.textBox12.TabIndex = 25;
+            this.textBox12.TabIndex = 10;
             this.textBox12.Text = "0";
             this.textBox12.Visible = false;
             // 
             // textBox13
             // 
-            this.textBox13.Location = new System.Drawing.Point(230, 414);
+            this.textBox13.Location = new System.Drawing.Point(944, 483);
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(49, 20);
-            this.textBox13.TabIndex = 24;
+            this.textBox13.TabIndex = 9;
             this.textBox13.Text = "-1";
             this.textBox13.Visible = false;
             // 
             // textBox14
             // 
-            this.textBox14.Location = new System.Drawing.Point(175, 414);
+            this.textBox14.Location = new System.Drawing.Point(889, 483);
             this.textBox14.Name = "textBox14";
             this.textBox14.Size = new System.Drawing.Size(49, 20);
-            this.textBox14.TabIndex = 23;
+            this.textBox14.TabIndex = 8;
             this.textBox14.Text = "7";
             this.textBox14.Visible = false;
             // 
             // textBox15
             // 
-            this.textBox15.Location = new System.Drawing.Point(120, 414);
+            this.textBox15.Location = new System.Drawing.Point(834, 483);
             this.textBox15.Name = "textBox15";
             this.textBox15.Size = new System.Drawing.Size(49, 20);
-            this.textBox15.TabIndex = 22;
+            this.textBox15.TabIndex = 7;
             this.textBox15.Text = "12";
             this.textBox15.Visible = false;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(152, 583);
+            this.button3.Location = new System.Drawing.Point(866, 652);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(134, 36);
             this.button3.TabIndex = 29;
@@ -295,15 +297,15 @@ namespace vchmat3
             // 
             // textBox16
             // 
-            this.textBox16.Location = new System.Drawing.Point(155, 557);
+            this.textBox16.Location = new System.Drawing.Point(869, 626);
             this.textBox16.Name = "textBox16";
             this.textBox16.Size = new System.Drawing.Size(40, 20);
-            this.textBox16.TabIndex = 32;
+            this.textBox16.TabIndex = 15;
             // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Location = new System.Drawing.Point(34, 561);
+            this.label5.Location = new System.Drawing.Point(748, 630);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(115, 19);
             this.label5.TabIndex = 33;
@@ -311,36 +313,36 @@ namespace vchmat3
             // 
             // xMax
             // 
-            this.xMax.Location = new System.Drawing.Point(65, 492);
+            this.xMax.Location = new System.Drawing.Point(779, 561);
             this.xMax.Name = "xMax";
             this.xMax.Size = new System.Drawing.Size(49, 20);
-            this.xMax.TabIndex = 34;
+            this.xMax.TabIndex = 11;
             // 
             // xMin
             // 
-            this.xMin.Location = new System.Drawing.Point(65, 518);
+            this.xMin.Location = new System.Drawing.Point(779, 587);
             this.xMin.Name = "xMin";
             this.xMin.Size = new System.Drawing.Size(49, 20);
-            this.xMin.TabIndex = 35;
+            this.xMin.TabIndex = 12;
             // 
             // yMax
             // 
-            this.yMax.Location = new System.Drawing.Point(120, 492);
+            this.yMax.Location = new System.Drawing.Point(834, 561);
             this.yMax.Name = "yMax";
             this.yMax.Size = new System.Drawing.Size(49, 20);
-            this.yMax.TabIndex = 36;
+            this.yMax.TabIndex = 13;
             // 
             // yMin
             // 
-            this.yMin.Location = new System.Drawing.Point(120, 518);
+            this.yMin.Location = new System.Drawing.Point(834, 587);
             this.yMin.Name = "yMin";
             this.yMin.Size = new System.Drawing.Size(49, 20);
-            this.yMin.TabIndex = 37;
+            this.yMin.TabIndex = 14;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(79, 476);
+            this.label6.Location = new System.Drawing.Point(793, 545);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(12, 13);
             this.label6.TabIndex = 38;
@@ -349,7 +351,7 @@ namespace vchmat3
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(137, 476);
+            this.label7.Location = new System.Drawing.Point(851, 545);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(12, 13);
             this.label7.TabIndex = 39;
@@ -358,7 +360,7 @@ namespace vchmat3
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(33, 495);
+            this.label8.Location = new System.Drawing.Point(747, 564);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(26, 13);
             this.label8.TabIndex = 40;
@@ -367,7 +369,7 @@ namespace vchmat3
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(33, 521);
+            this.label9.Location = new System.Drawing.Point(747, 590);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(23, 13);
             this.label9.TabIndex = 41;
@@ -375,7 +377,7 @@ namespace vchmat3
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(188, 492);
+            this.button5.Location = new System.Drawing.Point(902, 561);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(133, 46);
             this.button5.TabIndex = 42;
@@ -386,7 +388,7 @@ namespace vchmat3
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(34, 454);
+            this.label10.Location = new System.Drawing.Point(748, 523);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(119, 13);
             this.label10.TabIndex = 44;
@@ -394,7 +396,7 @@ namespace vchmat3
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(292, 583);
+            this.button4.Location = new System.Drawing.Point(1006, 652);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(134, 36);
             this.button4.TabIndex = 45;
@@ -404,11 +406,11 @@ namespace vchmat3
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(432, 583);
+            this.button6.Location = new System.Drawing.Point(1146, 652);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(134, 36);
             this.button6.TabIndex = 46;
-            this.button6.Text = "Только МНК";
+            this.button6.Text = "МНК ручной";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -416,8 +418,9 @@ namespace vchmat3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(579, 628);
+            this.ClientSize = new System.Drawing.Size(1302, 709);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label10);

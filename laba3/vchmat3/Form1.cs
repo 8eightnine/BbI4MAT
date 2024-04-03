@@ -234,7 +234,7 @@ namespace vchmat3
             double MCH, x;
             for (x = -5; x <= 5; x += 0.001)
             {
-                MCH = -Math.Pow(x, 3) * 1.505 - Math.Pow(x, 2) * 5.099 + 4.632 * x - 7.358;
+                MCH = -Math.Pow(x, 3) * 1.505 + Math.Pow(x, 2) * 5.099 + 4.632 * x - 7.358;
                 chart1.Series[3].Points.AddXY(x, MCH);
             }
         }
@@ -264,6 +264,7 @@ namespace vchmat3
             {
                 point = FUNC(y);
                 chart1.Series[3].Points.AddXY(y, point);
+                chart1.Series[3].Color = Color.DarkGreen;
             }
         }
 
@@ -272,9 +273,9 @@ namespace vchmat3
         {
             // Масштаб
             chart1.Series[2].Points.Clear();
-            chart1.ChartAreas[0].AxisX.Minimum = -3;
-            chart1.ChartAreas[0].AxisX.Maximum = 5;
-            chart1.ChartAreas[0].AxisY.Minimum = -5;
+            chart1.ChartAreas[0].AxisX.Minimum = -5;
+            chart1.ChartAreas[0].AxisX.Maximum = 10;
+            chart1.ChartAreas[0].AxisY.Minimum = -10;
             chart1.ChartAreas[0].AxisY.Maximum = 20;
 
             chart1.ChartAreas[0].AxisX.MajorGrid.Interval = step;
@@ -307,9 +308,9 @@ namespace vchmat3
         private void GrapH(double xMin, double xMax, double step, double[] x, double[] y)
         {
             // Масштаб
-            chart1.ChartAreas[0].AxisX.Minimum = -3;
-            chart1.ChartAreas[0].AxisX.Maximum = 5;
-            chart1.ChartAreas[0].AxisY.Minimum = -5;
+            chart1.ChartAreas[0].AxisX.Minimum = -5;
+            chart1.ChartAreas[0].AxisX.Maximum = 10;
+            chart1.ChartAreas[0].AxisY.Minimum = -10;
             chart1.ChartAreas[0].AxisY.Maximum = 20;
             chart1.Series[2].ChartType = SeriesChartType.Line;
             chart1.ChartAreas[0].AxisX.MajorGrid.Interval = step;
@@ -532,8 +533,8 @@ namespace vchmat3
         private void Form1_Load(object sender, EventArgs e)
         {
             chart1.Series.Add("Точки");
-            chart1.Series.Add("-");
-            chart1.Series.Add("f(x)");
+            chart1.Series.Add("МНК (ручной расчет)");
+            chart1.Series.Add("Многочлен по коэф.");
         }
     }
 }
