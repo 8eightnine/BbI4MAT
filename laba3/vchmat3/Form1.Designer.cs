@@ -75,9 +75,10 @@ namespace vchmat3
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(749, 478);
+            this.button1.Location = new System.Drawing.Point(999, 588);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 1240;
             this.button1.Text = "Ввести";
             this.button1.UseVisualStyleBackColor = true;
@@ -91,44 +92,48 @@ namespace vchmat3
             legend1.IsDockedInsideChartArea = false;
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(13, 13);
+            this.chart1.Location = new System.Drawing.Point(17, 16);
+            this.chart1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chart1.Name = "chart1";
             series1.BorderWidth = 3;
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.LabelForeColor = System.Drawing.Color.BlanchedAlmond;
             series1.Legend = "Legend1";
             series1.LegendText = "Многочлен МНК";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(707, 675);
+            this.chart1.Size = new System.Drawing.Size(943, 831);
             this.chart1.TabIndex = 200;
             this.chart1.Text = "chart1";
             this.chart1.Visible = false;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(749, 452);
+            this.textBox5.Location = new System.Drawing.Point(999, 556);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(75, 20);
+            this.textBox5.Size = new System.Drawing.Size(99, 22);
             this.textBox5.TabIndex = 100;
             this.textBox5.Text = "5";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(746, 436);
+            this.label1.Location = new System.Drawing.Point(995, 537);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(180, 13);
+            this.label1.Size = new System.Drawing.Size(233, 16);
             this.label1.TabIndex = 300;
             this.label1.Text = "Введите количество аргументов i:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(746, 436);
+            this.label2.Location = new System.Drawing.Point(995, 537);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 13);
+            this.label2.Size = new System.Drawing.Size(142, 16);
             this.label2.TabIndex = 10;
             this.label2.Text = "Табличная функция:";
             this.label2.Visible = false;
@@ -136,9 +141,10 @@ namespace vchmat3
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(746, 452);
+            this.label4.Location = new System.Drawing.Point(995, 556);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(27, 20);
+            this.label4.Size = new System.Drawing.Size(36, 25);
             this.label4.TabIndex = 12;
             this.label4.Text = "x( i )";
             this.label4.Visible = false;
@@ -146,18 +152,20 @@ namespace vchmat3
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(746, 483);
+            this.label3.Location = new System.Drawing.Point(995, 594);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(27, 20);
+            this.label3.Size = new System.Drawing.Size(36, 25);
             this.label3.TabIndex = 11;
             this.label3.Text = "f( i ) ";
             this.label3.Visible = false;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(726, 652);
+            this.button2.Location = new System.Drawing.Point(968, 802);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(134, 36);
+            this.button2.Size = new System.Drawing.Size(179, 44);
             this.button2.TabIndex = 130;
             this.button2.Text = "МНК";
             this.button2.UseVisualStyleBackColor = true;
@@ -165,131 +173,146 @@ namespace vchmat3
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(779, 483);
+            this.textBox1.Location = new System.Drawing.Point(1039, 594);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(49, 20);
+            this.textBox1.Size = new System.Drawing.Size(64, 22);
             this.textBox1.TabIndex = 6;
             this.textBox1.Text = "18";
             this.textBox1.Visible = false;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(779, 452);
+            this.textBox2.Location = new System.Drawing.Point(1039, 556);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(49, 20);
+            this.textBox2.Size = new System.Drawing.Size(64, 22);
             this.textBox2.TabIndex = 1;
             this.textBox2.Text = "-2";
             this.textBox2.Visible = false;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(834, 452);
+            this.textBox3.Location = new System.Drawing.Point(1112, 556);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(49, 20);
+            this.textBox3.Size = new System.Drawing.Size(64, 22);
             this.textBox3.TabIndex = 2;
             this.textBox3.Text = "0";
             this.textBox3.Visible = false;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(889, 452);
+            this.textBox4.Location = new System.Drawing.Point(1185, 556);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(49, 20);
+            this.textBox4.Size = new System.Drawing.Size(64, 22);
             this.textBox4.TabIndex = 3;
             this.textBox4.Text = "2";
             this.textBox4.Visible = false;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(944, 452);
+            this.textBox6.Location = new System.Drawing.Point(1259, 556);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(49, 20);
+            this.textBox6.Size = new System.Drawing.Size(64, 22);
             this.textBox6.TabIndex = 4;
             this.textBox6.Text = "3";
             this.textBox6.Visible = false;
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(999, 452);
+            this.textBox7.Location = new System.Drawing.Point(1332, 556);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(49, 20);
+            this.textBox7.Size = new System.Drawing.Size(64, 22);
             this.textBox7.TabIndex = 5;
             this.textBox7.Text = "4";
             this.textBox7.Visible = false;
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(1054, 452);
+            this.textBox8.Location = new System.Drawing.Point(1405, 556);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(49, 20);
+            this.textBox8.Size = new System.Drawing.Size(64, 22);
             this.textBox8.TabIndex = 20;
             this.textBox8.Visible = false;
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(1109, 452);
+            this.textBox9.Location = new System.Drawing.Point(1479, 556);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(49, 20);
+            this.textBox9.Size = new System.Drawing.Size(64, 22);
             this.textBox9.TabIndex = 21;
             this.textBox9.Visible = false;
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(1109, 483);
+            this.textBox10.Location = new System.Drawing.Point(1479, 594);
+            this.textBox10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(49, 20);
+            this.textBox10.Size = new System.Drawing.Size(64, 22);
             this.textBox10.TabIndex = 27;
             this.textBox10.Visible = false;
             // 
             // textBox11
             // 
-            this.textBox11.Location = new System.Drawing.Point(1054, 483);
+            this.textBox11.Location = new System.Drawing.Point(1405, 594);
+            this.textBox11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(49, 20);
+            this.textBox11.Size = new System.Drawing.Size(64, 22);
             this.textBox11.TabIndex = 26;
             this.textBox11.Visible = false;
             // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(999, 483);
+            this.textBox12.Location = new System.Drawing.Point(1332, 594);
+            this.textBox12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(49, 20);
+            this.textBox12.Size = new System.Drawing.Size(64, 22);
             this.textBox12.TabIndex = 10;
             this.textBox12.Text = "0";
             this.textBox12.Visible = false;
             // 
             // textBox13
             // 
-            this.textBox13.Location = new System.Drawing.Point(944, 483);
+            this.textBox13.Location = new System.Drawing.Point(1259, 594);
+            this.textBox13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(49, 20);
+            this.textBox13.Size = new System.Drawing.Size(64, 22);
             this.textBox13.TabIndex = 9;
             this.textBox13.Text = "-1";
             this.textBox13.Visible = false;
             // 
             // textBox14
             // 
-            this.textBox14.Location = new System.Drawing.Point(889, 483);
+            this.textBox14.Location = new System.Drawing.Point(1185, 594);
+            this.textBox14.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(49, 20);
+            this.textBox14.Size = new System.Drawing.Size(64, 22);
             this.textBox14.TabIndex = 8;
             this.textBox14.Text = "7";
             this.textBox14.Visible = false;
             // 
             // textBox15
             // 
-            this.textBox15.Location = new System.Drawing.Point(834, 483);
+            this.textBox15.Location = new System.Drawing.Point(1112, 594);
+            this.textBox15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(49, 20);
+            this.textBox15.Size = new System.Drawing.Size(64, 22);
             this.textBox15.TabIndex = 7;
             this.textBox15.Text = "12";
             this.textBox15.Visible = false;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(866, 652);
+            this.button3.Location = new System.Drawing.Point(1155, 802);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(134, 36);
+            this.button3.Size = new System.Drawing.Size(179, 44);
             this.button3.TabIndex = 29;
             this.button3.Text = "Лагранж";
             this.button3.UseVisualStyleBackColor = true;
@@ -297,89 +320,100 @@ namespace vchmat3
             // 
             // textBox16
             // 
-            this.textBox16.Location = new System.Drawing.Point(869, 626);
+            this.textBox16.Location = new System.Drawing.Point(1159, 770);
+            this.textBox16.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(40, 20);
+            this.textBox16.Size = new System.Drawing.Size(52, 22);
             this.textBox16.TabIndex = 15;
             // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Location = new System.Drawing.Point(748, 630);
+            this.label5.Location = new System.Drawing.Point(997, 775);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(115, 19);
+            this.label5.Size = new System.Drawing.Size(153, 23);
             this.label5.TabIndex = 33;
             this.label5.Text = "Степень многочлена:";
             // 
             // xMax
             // 
-            this.xMax.Location = new System.Drawing.Point(779, 561);
+            this.xMax.Location = new System.Drawing.Point(1039, 690);
+            this.xMax.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.xMax.Name = "xMax";
-            this.xMax.Size = new System.Drawing.Size(49, 20);
+            this.xMax.Size = new System.Drawing.Size(64, 22);
             this.xMax.TabIndex = 11;
             // 
             // xMin
             // 
-            this.xMin.Location = new System.Drawing.Point(779, 587);
+            this.xMin.Location = new System.Drawing.Point(1039, 722);
+            this.xMin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.xMin.Name = "xMin";
-            this.xMin.Size = new System.Drawing.Size(49, 20);
+            this.xMin.Size = new System.Drawing.Size(64, 22);
             this.xMin.TabIndex = 12;
             // 
             // yMax
             // 
-            this.yMax.Location = new System.Drawing.Point(834, 561);
+            this.yMax.Location = new System.Drawing.Point(1112, 690);
+            this.yMax.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.yMax.Name = "yMax";
-            this.yMax.Size = new System.Drawing.Size(49, 20);
+            this.yMax.Size = new System.Drawing.Size(64, 22);
             this.yMax.TabIndex = 13;
             // 
             // yMin
             // 
-            this.yMin.Location = new System.Drawing.Point(834, 587);
+            this.yMin.Location = new System.Drawing.Point(1112, 722);
+            this.yMin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.yMin.Name = "yMin";
-            this.yMin.Size = new System.Drawing.Size(49, 20);
+            this.yMin.Size = new System.Drawing.Size(64, 22);
             this.yMin.TabIndex = 14;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(793, 545);
+            this.label6.Location = new System.Drawing.Point(1057, 671);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(12, 13);
+            this.label6.Size = new System.Drawing.Size(13, 16);
             this.label6.TabIndex = 38;
             this.label6.Text = "x";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(851, 545);
+            this.label7.Location = new System.Drawing.Point(1135, 671);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(12, 13);
+            this.label7.Size = new System.Drawing.Size(14, 16);
             this.label7.TabIndex = 39;
             this.label7.Text = "y";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(747, 564);
+            this.label8.Location = new System.Drawing.Point(996, 694);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(26, 13);
+            this.label8.Size = new System.Drawing.Size(32, 16);
             this.label8.TabIndex = 40;
             this.label8.Text = "max";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(747, 590);
+            this.label9.Location = new System.Drawing.Point(996, 726);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(23, 13);
+            this.label9.Size = new System.Drawing.Size(28, 16);
             this.label9.TabIndex = 41;
             this.label9.Text = "min";
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(902, 561);
+            this.button5.Location = new System.Drawing.Point(1203, 690);
+            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(133, 46);
+            this.button5.Size = new System.Drawing.Size(177, 57);
             this.button5.TabIndex = 42;
             this.button5.Text = "Сравнение метода НК";
             this.button5.UseVisualStyleBackColor = true;
@@ -388,17 +422,19 @@ namespace vchmat3
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(748, 523);
+            this.label10.Location = new System.Drawing.Point(997, 644);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(119, 13);
+            this.label10.Size = new System.Drawing.Size(148, 16);
             this.label10.TabIndex = 44;
             this.label10.Text = "Настройки масштаба:";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1006, 652);
+            this.button4.Location = new System.Drawing.Point(1341, 802);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(134, 36);
+            this.button4.Size = new System.Drawing.Size(179, 44);
             this.button4.TabIndex = 45;
             this.button4.Text = "Ньютон";
             this.button4.UseVisualStyleBackColor = true;
@@ -406,9 +442,10 @@ namespace vchmat3
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(1146, 652);
+            this.button6.Location = new System.Drawing.Point(1528, 802);
+            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(134, 36);
+            this.button6.Size = new System.Drawing.Size(179, 44);
             this.button6.TabIndex = 46;
             this.button6.Text = "МНК ручной";
             this.button6.UseVisualStyleBackColor = true;
@@ -416,11 +453,11 @@ namespace vchmat3
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1302, 709);
+            this.ClientSize = new System.Drawing.Size(1736, 873);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label10);
@@ -458,6 +495,7 @@ namespace vchmat3
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "LR3";
             this.Load += new System.EventHandler(this.Form1_Load);

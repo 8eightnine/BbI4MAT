@@ -251,7 +251,7 @@ namespace vchmat3
         // Отрисовка графика
         private void GRAPH()
         {
-            chart1.ChartAreas[0].AxisX.Minimum = -3;
+            chart1.ChartAreas[0].AxisX.Minimum = -10;
             chart1.ChartAreas[0].AxisX.Maximum = 5;
             chart1.ChartAreas[0].AxisY.Minimum = -5;
             chart1.ChartAreas[0].AxisY.Maximum = 20;
@@ -273,9 +273,9 @@ namespace vchmat3
         {
             // Масштаб
             chart1.Series[2].Points.Clear();
-            chart1.ChartAreas[0].AxisX.Minimum = -5;
+            chart1.ChartAreas[0].AxisX.Minimum = -10;
             chart1.ChartAreas[0].AxisX.Maximum = 10;
-            chart1.ChartAreas[0].AxisY.Minimum = -10;
+            chart1.ChartAreas[0].AxisY.Minimum = -20;
             chart1.ChartAreas[0].AxisY.Maximum = 20;
 
             chart1.ChartAreas[0].AxisX.MajorGrid.Interval = step;
@@ -393,13 +393,14 @@ namespace vchmat3
             double xMin = x[0] * 5;
             double xMax = x[n - 1] * 5;
 
-            int count = (int)Math.Ceiling((xMax - xMin) / step) + 1;
+            int count = (int)Math.Ceiling((xMax - xMin) / 0.01) + 1;
             double[] abs = new double[count];
             double[] ord = new double[count];
 
             for (int i = 0; i < count; i++)
             {
-                abs[i] = xMin + step * i;
+                // Рассчет многочлена
+                abs[i] = xMin + 0.01 * i;
                 for (int j = 0; j <= k; j++)
                     ord[i] += Math.Pow(abs[i], j) * a[j];
             }
@@ -423,7 +424,7 @@ namespace vchmat3
             double xMin = x[0] * 5;
             double xMax = x[n - 1] * 5;
 
-            int count = (int)Math.Ceiling((xMax - xMin) / step) + 1;
+            int count = (int)Math.Ceiling((xMax - xMin) / 0.01) + 1;
             double[] abs = new double[count];
             double[] ord = new double[count];
 
@@ -431,7 +432,7 @@ namespace vchmat3
             double num, den; // Числитель и знаменатель для вычисления многочлена в форме Лагранжа
             for (int i = 0; i < count; i++)
             {
-                abs[i] = xMin + step * i;
+                abs[i] = xMin + 0.01 * i;
                 L = 0;
                 for (int j = 0; j < n; j++)
                 {
@@ -470,7 +471,7 @@ namespace vchmat3
             double xMin = x[0] * 5;
             double xMax = x[n - 1] * 5;
 
-            int count = (int)Math.Ceiling((xMax - xMin) / step) + 1;
+            int count = (int)Math.Ceiling((xMax - xMin) / 0.01) + 1;
             double[] abs = new double[count];
             double[] ord = new double[count];
 
@@ -499,7 +500,7 @@ namespace vchmat3
             for (int i = 0; i < count; i++)
             {
                 P = ff[0, 0];
-                abs[i] = xMin + step * i;
+                abs[i] = xMin + 0.01 * i;
                 for (int j = 1; j < n; j++)
                 {
                     k = j - 1;

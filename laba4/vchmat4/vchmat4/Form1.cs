@@ -22,7 +22,7 @@ namespace vchmat4
         int n;
         TextBox[] X = new TextBox[7]; //массив ячеек x
         TextBox[] F = new TextBox[7]; //массив ячеек f
-        double step = 0.5;
+        double step = 0.01;
 
         //создание массива с данными из текстбокса
         private double[] array(TextBox[] box, int n)
@@ -156,44 +156,64 @@ namespace vchmat4
         private void graph(double[] x, double[] y)
         {
             chart1.Series[1].Points.Clear();
-            chart1.Series[0].Color = Color.FromArgb(28, 228, 228);
-            chart1.ChartAreas[0].AxisX.Minimum = -2;
-            chart1.ChartAreas[0].AxisX.Maximum = 4;
+            chart1.Series[0].Color = Color.FromArgb(0, 255, 50);
+            chart1.ChartAreas[0].AxisX.Minimum = -5;
+            chart1.ChartAreas[0].AxisX.Maximum = 10;
             chart1.ChartAreas[0].AxisY.Minimum = -5;
             chart1.ChartAreas[0].AxisY.Maximum = 20;
-            chart1.ChartAreas[0].AxisX.MajorGrid.Interval = step;
+            chart1.ChartAreas[0].AxisX.MajorGrid.Interval = 0.5;
             chart1.Series[0].Points.DataBindXY(x, y);
+            chart1.Series[1].Color = Color.FromArgb(255, 0, 0);
+            chart1.Series[1].ChartType = SeriesChartType.Point;
+            chart1.Series[1].BorderWidth = 2;
+            for (int i = 0; i < x.Length; i++)
+            {
+                chart1.Series[1]["PixelPointWidth"] = "15";
+                chart1.Series[1].Points.AddXY(x[i], y[i]);
+            }
         }
 
         private void Graph(double[] x, double[] y, double[] pX, double[] pF)
         {
-            chart1.ChartAreas[0].AxisX.Minimum = -2;
-            chart1.ChartAreas[0].AxisX.Maximum = 4;
-            chart1.ChartAreas[0].AxisY.Minimum = -5;
+            chart1.Series[1].Points.Clear();
+            chart1.ChartAreas[0].AxisX.Minimum = -5;
+            chart1.ChartAreas[0].AxisX.Maximum = 10;
+            chart1.ChartAreas[0].AxisY.Minimum = -10;
             chart1.ChartAreas[0].AxisY.Maximum = 20;
             chart1.Series[0].Name = "Spline";
             chart1.Series[0].Color = Color.FromArgb(0, 0, 0);
-            chart1.ChartAreas[0].AxisX.MajorGrid.Interval = step;
+            chart1.ChartAreas[0].AxisX.MajorGrid.Interval = 0.5;
             chart1.Series[0].Points.DataBindXY(x, y);
             chart1.Series[1].Color = Color.FromArgb(255, 0, 0);
             chart1.Series[1].ChartType = SeriesChartType.Point;
             chart1.Series[1].BorderWidth = 2;
             for (int i = 0; i< 5; i++)
             {
-                chart1.Series[1]["PixelPointWidth"] = "10";
+                chart1.Series[1]["PixelPointWidth"] = "25";
                 chart1.Series[1].Points.AddXY(pX[i], pF[i]);
             }
         }
-            //функция считает производные по аргументу x и значению f
+        //функция считает производные по аргументу x и значению f
         private double[] diff(double[] x, double[] f)
         {
+            int n = x.Length;
             double[] dif = new double[n];
             for (int i = 1; i < n - 1; i++)
-                dif[i] = (f[i + 1] - f[i - 1]) / (x[i + 1] - x[i - 1]);
-            dif[0] = (f[1] - f[0]) / (x[1] - x[0]);
-            dif[n - 1] = (f[n - 1] - f[n - 2]) / (x[n - 1] - x[n - 2]);
+            {
+                double h = x[i] - x[i - 1];
+                dif[i] = (f[i] - f[i - 1]) / h;
+            }
+
+            double h0 = x[1] - x[0];
+            dif[0] = (f[0] - f[1]) / h0;
+
+            double hn = x[n - 1] - x[n - 2];
+            dif[n - 1] = (f[n - 1] - f[n - 2]) / hn;
+
             return dif;
         }
+
+
 
         //построить первую производную
         private void button2_Click(object sender, EventArgs e)
@@ -243,65 +263,35 @@ namespace vchmat4
             }
         }
 
-        //метод Гаусса без выбора главного элемента
-        private double[] gauss(double[,] matrix, double[] y, int n)
+        //метод прогонки
+        private double[] TridiagonalMatrixAlgorithm(double[,] matrix, double[] y, int n)
         {
-            double[] x;
-            x = new double[n];
+            double[] x = new double[n];
+            double[] alpha = new double[n];
+            double[] beta = new double[n];
 
-            // переставим строки так, чтобы диагоналные элементы были не 0
-            for (int ind = 0; ind < n; ind++)
+            // Прямой ход: вычисление прогоночных коэффициентов
+            alpha[0] = matrix[0, 0];
+            beta[0] = y[0] / alpha[0];
+
+            for (int i = 1; i < n; i++)
             {
-                int numb = ind;
-                for (int i = 1; i < n; i++)
-                    if (matrix[i, ind] != 0)
-                        numb = i;
-
-                //перестановка строк,ставим на позицию ind строку, в которой ind элемент max
-                if (numb != ind)
-                {
-                    //идем по строке
-                    for (int i = 0; i < n; i++)
-                    {
-                        double tempp = matrix[ind, i];
-                        matrix[ind, i] = matrix[numb, i];
-                        matrix[numb, i] = tempp;
-                    }
-
-                    double temp = y[ind];
-                    y[ind] = y[numb];
-                    y[numb] = temp;
-                }
+                double denom = matrix[i, i] - matrix[i, i - 1] * matrix[i - 1, i] / alpha[i - 1];
+                alpha[i] = denom;
+                beta[i] = (y[i] - matrix[i, i - 1] * beta[i - 1]) / denom;
             }
 
-            //идем по переменным
-            for (int ind = 0; ind < n; ind++)
+            // Обратный ход: вычисление решения
+            x[n - 1] = beta[n - 1];
+
+            for (int i = n - 2; i >= 0; i--)
             {
-                //приведем расширенную матрицу к ступенчатому виду
-                //идем по строкам,начиная со следующей после выбранной
-                for (int i = ind + 1; i < n; i++)
-                {
-                    double mult = -matrix[i, ind] / matrix[ind, ind];
-                    if (matrix[i, ind] != 0)
-                    {
-                        for (int j = ind; j < n; j++)
-                            matrix[i, j] += matrix[ind, j] * mult;
-                    }
-                    else
-                        continue;
-                    y[i] += y[ind] * mult;
-                }
+                x[i] = beta[i] - matrix[i, i + 1] * x[i + 1] / alpha[i];
             }
 
-            //обратная подстановка
-            for (int i = n - 1; i >= 0; i--)
-            {
-                x[i] = y[i] / matrix[i, i];
-                for (int j = 0; j < i; j++)
-                    y[j] = y[j] - matrix[j, i] * x[i];
-            }
             return x;
         }
+    
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -356,7 +346,7 @@ namespace vchmat4
                 k++;
                 t++;
             }
-            xGauss = gauss(matrixC, beta, n - 2);
+            xGauss = TridiagonalMatrixAlgorithm(matrixC, beta, n - 2);
             for (int i = 1; i < n - 1; i++)
                 c[i] = Math.Round(xGauss[i - 1],3);
 
@@ -424,7 +414,61 @@ namespace vchmat4
              Graph(abs, ord,x,f);
         }
 
-       
+        private double func(double x)
+        {
+            return 2 * x * x;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+            // Задаем точки, в которых будем вычислять производные
+            double[] xValues = { Math.Pow(10, -2), Math.Pow(10, -1), 1, 10, Math.Pow(10, 2) };
+
+            // Задаем функцию f(x) = 2 * x^2
+            double[] fValues = new double[xValues.Length];
+            for (int i = 0; i < xValues.Length; i++)
+            {
+                fValues[i] = 2 * Math.Pow(xValues[i], 2);
+            }
+
+            // Вызываем функцию для вычисления приближенных производных с различными шагами
+            CalculateDerivatives();
+        }
+
+        void CalculateDerivatives()
+        {
+            double x = 0.01;
+            double[] xValues = { Math.Pow(10, -2), Math.Pow(10, -1), 1, 10, Math.Pow(10, 2) };
+            // Создаем массив для хранения результатов производных
+            //double[] derivatives = new double[x.Length];
+
+            // Выполняем вычисления для различных шагов
+            for (int step = 1; step <= 8; step++)
+            {
+                double h = Math.Pow(10, -step);
+
+                //double fx_chisl_left = (func(x + h) - func(x)) / h;
+                // Вычисляем приближенные производные
+                //while (x <= Math.Pow(10, 2))
+                //{
+                //    //derivatives[i] = (f[i] - f[i] ) / h;
+                //    double fx_chisl = (func(x) - func(x - h)) / h;
+                //    richTextBox1.Text += $"Разница: " + (fx_chisl - 4 * x) + "Шаг: " + step + Environment.NewLine; 
+                //    x += h;
+                //}
+                richTextBox1.Text += $"Шаг равен: {h}" + Environment.NewLine;
+
+                for(int i = 0; i < 5; i++)
+                {
+                    double fx = 0;
+                    fx = (func(xValues[i]) - func(xValues[i] - h)) / h;
+                    richTextBox1.Text += $"Точка {xValues[i]}, Разница {Math.Abs(fx - 4 * xValues[i])}" + Environment.NewLine;
+                }
+
+                // Вычисляем граничные производные
+                //double dfx_chisl_right = (func(x) - func(x - h)) / h;
+            }
+        }
     }
  }
-
