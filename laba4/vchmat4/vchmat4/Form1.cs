@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -92,8 +85,6 @@ namespace vchmat4
                         cleaning(n);
                         return false;
                     }
-
-            //проверка масштаба
           
             return true;
         }
@@ -159,8 +150,8 @@ namespace vchmat4
             chart1.Series[0].Color = Color.FromArgb(0, 255, 50);
             chart1.ChartAreas[0].AxisX.Minimum = -5;
             chart1.ChartAreas[0].AxisX.Maximum = 10;
-            chart1.ChartAreas[0].AxisY.Minimum = -5;
-            chart1.ChartAreas[0].AxisY.Maximum = 20;
+            chart1.ChartAreas[0].AxisY.Minimum = -10;
+            chart1.ChartAreas[0].AxisY.Maximum = 25;
             chart1.ChartAreas[0].AxisX.MajorGrid.Interval = 0.5;
             chart1.Series[0].Points.DataBindXY(x, y);
             chart1.Series[1].Color = Color.FromArgb(255, 0, 0);
@@ -193,47 +184,44 @@ namespace vchmat4
                 chart1.Series[1].Points.AddXY(pX[i], pF[i]);
             }
         }
+
         //функция считает производные по аргументу x и значению f
         private double[] diff(double[] x, double[] f)
         {
             int n = x.Length;
             double[] dif = new double[n];
-            for (int i = 1; i < n - 1; i++)
+
+            // Рассчитываем производную
+            for (int i = 0; i < n - 1; i++)
             {
-                double h = x[i] - x[i - 1];
-                dif[i] = (f[i] - f[i - 1]) / h;
+                dif[i] = (f[i + 1] - f[i]) / (x[i + 1] - x[i]);
             }
-
-            double h0 = x[1] - x[0];
-            dif[0] = (f[0] - f[1]) / h0;
-
-            double hn = x[n - 1] - x[n - 2];
-            dif[n - 1] = (f[n - 1] - f[n - 2]) / hn;
+            // Для последней точки можно использовать аналогичное разностное приближение
+            dif[n - 1] = dif[n - 2]; // Например, повторяем значение производной в предыдущей точке
 
             return dif;
         }
-
-
 
         //построить первую производную
         private void button2_Click(object sender, EventArgs e)
         {
             if (!checkTable())
                 return;
-            //заполняем массивы из текстбоксов
+
+            // Заполняем массивы из текстбоксов
             double[] x = array(X, n);
             double[] f = array(F, n);
 
-            double[] dif; //массив производных
-            dif = diff(x, f);
+            // Вычисляем производную с использованием метода конечных разностей
+            double[] dif = diff(x, f);
 
-            //строим график
+            // Строим график
             graph(x, dif);
+            chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
 
-            //выводим значения производных для проверки
+            // Выводим значения производных для проверки
             textBox20.Text = "f' = ";
             for (int i = 0; i < n; i++)
-
             {
                 textBox20.Text += dif[i].ToString() + " ";
             }
@@ -254,6 +242,7 @@ namespace vchmat4
 
             //строим график
             graph(x, dif2);
+            chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 
             //выводим значения вторых производных для проверки
             textBox20.Text = "f'' = ";
@@ -412,6 +401,7 @@ namespace vchmat4
                  }
              }
              Graph(abs, ord,x,f);
+            chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
         }
 
         private double func(double x)
@@ -440,23 +430,12 @@ namespace vchmat4
         {
             double x = 0.01;
             double[] xValues = { Math.Pow(10, -2), Math.Pow(10, -1), 1, 10, Math.Pow(10, 2) };
-            // Создаем массив для хранения результатов производных
-            //double[] derivatives = new double[x.Length];
 
             // Выполняем вычисления для различных шагов
             for (int step = 1; step <= 8; step++)
             {
                 double h = Math.Pow(10, -step);
 
-                //double fx_chisl_left = (func(x + h) - func(x)) / h;
-                // Вычисляем приближенные производные
-                //while (x <= Math.Pow(10, 2))
-                //{
-                //    //derivatives[i] = (f[i] - f[i] ) / h;
-                //    double fx_chisl = (func(x) - func(x - h)) / h;
-                //    richTextBox1.Text += $"Разница: " + (fx_chisl - 4 * x) + "Шаг: " + step + Environment.NewLine; 
-                //    x += h;
-                //}
                 richTextBox1.Text += $"Шаг равен: {h}" + Environment.NewLine;
 
                 for(int i = 0; i < 5; i++)
@@ -465,9 +444,6 @@ namespace vchmat4
                     fx = (func(xValues[i]) - func(xValues[i] - h)) / h;
                     richTextBox1.Text += $"Точка {xValues[i]}, Разница {Math.Abs(fx - 4 * xValues[i])}" + Environment.NewLine;
                 }
-
-                // Вычисляем граничные производные
-                //double dfx_chisl_right = (func(x) - func(x - h)) / h;
             }
         }
     }
