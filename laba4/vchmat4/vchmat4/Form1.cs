@@ -150,7 +150,7 @@ namespace vchmat4
             chart1.Series[0].Color = Color.FromArgb(0, 255, 50);
             chart1.ChartAreas[0].AxisX.Minimum = -5;
             chart1.ChartAreas[0].AxisX.Maximum = 10;
-            chart1.ChartAreas[0].AxisY.Minimum = -10;
+            chart1.ChartAreas[0].AxisY.Minimum = -15;
             chart1.ChartAreas[0].AxisY.Maximum = 25;
             chart1.ChartAreas[0].AxisX.MajorGrid.Interval = 0.5;
             chart1.Series[0].Points.DataBindXY(x, y);
