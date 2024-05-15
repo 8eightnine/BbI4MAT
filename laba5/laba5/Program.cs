@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace YourNamespace
+﻿namespace YourNamespace
 {
     class Program
     {
@@ -81,108 +79,50 @@ namespace YourNamespace
         }
 
         // Метод Ньютона-Котеса
-        static double NewtonCotes(double epsilon, double r, double h, double a, double b)
+        static double Simpson(double a, double b)
         {
-            double k = 10;
-            h /= (3 * k);
-            double sum = 0;
-            int counter = 0;
-            double sumResult = 0;
-            do
-            {
-                sum = sumResult;
-                sumResult = Func(a) + Func(b);
-
-                for (int i = 1; i <= 3 * k - 1; i++) // k-1 = 0 Антох тут же ошибка, не?
-                {
-                    double x = a + h * i;
-                    if (i % 3 == 0)
-                        sumResult = sumResult + 2 * Func(x);
-                    else
-                        sumResult = sumResult + 3 * Func(x);
-                }
-                k *= r;
-                sumResult = (3.0 / 8.0) * sumResult * h;
-                Console.WriteLine($"Counter: {counter}, result: {sumResult}");
-                counter++;
-            }
-            while (!RungeRule(sum, sumResult, epsilon, 3, 4));
-            Console.WriteLine(counter);
-            Console.Write("Шаг остановки = " + h);
-            return sumResult;
+            double h = (b - a) / 3;
+            // Две дополнительные точки (n+1), n = 3
+            double mid = a + h;
+            double mid2 = mid + h;
+            // Результат минус погрешность (3/80*h^5)
+            double res = (3 * h / 8) * (Func(a) + 3 * Func(mid) + 3 * Func(mid2) + Func(b)) - 3 * Math.Pow(h, 5) / 80;
+            return res;
         }
 
-        static double NewtonCotesIntegration(double a, double b, int k)
+        static double NewtonCotes3(double a, double b, double r, double eps)
         {
-            double h = (b - a) / k;
-            double sum = 0;
-            for (int i = 0; i < k; i++)
+            double result = 0, sum = 0;
+            double intervalCount = r;
+            int k = 1;
+
+            double h = (b - a) / intervalCount;
+
+            // Первичный подсчет
+            for (int i = 0; i < intervalCount; i++)
             {
-                double x = a + i * h;
-                sum += h * (Func(x) + 3 * Func((x + h / 3)) + 3 * Func((x + 2 * h / 3)) + Func(x + h)) / 8;
-            }
-            return sum;
-        }
-
-        static double NewtonCotes3(double a, double b, int n)
-        {
-            double h = (b - a) / n;
-            double integral = 0;
-
-            for (int i = 0; i < n; i += 3)
-            {
-                double x0 = a + h * i;
-                double x1 = a + h * (i + 1);
-                double x2 = a + h * (i + 2);
-                double x3 = a + h * (i + 3);
-
-                integral += (3 * h / 8) * (Func(x0) + 3 * Func(x1) + 3 * Func(x2) + Func(x3));
+                double low = a + i * h;
+                double up = low + h;
+                result += Simpson(low, up);
+                //Console.WriteLine(low + " " + up);
             }
 
-            return integral;
-        }
-
-        static double IntegralWithAccuracy(double a, double b, double epsilon)
-        {
-            int n = 3; // начальное количество интервалов
-            double r = 2; // коэффициент уменьшения шага
-            double p = 4; // порядок точности метода
-            int count = 0;
-
-            double Sh = NewtonCotes3(a, b, n);
-            double Shr;
-
-            do
+            while (!RungeRule(sum, result, eps, 2, 4) && k < 20)
             {
-                n *= (int)r;
-                Shr = NewtonCotes3(a, b, n);
-                count++;
-            }
-            while (!RungeRule(Sh, Shr, epsilon, r, p));
-            Console.WriteLine(count);
-            return Shr;
-        }
-
-        static double NewtonCotes2(double epsilon, double a, double b)
-        {
-            int k = 3; // Начальное количество интервалов
-            double h = (b - a) / k;
-            int counter = 0;
-            double Sh = NewtonCotesIntegration(a, b, k); // Интеграл с начальным количеством интервалов
-            while (true)
-            {
-                double Shr = NewtonCotesIntegration(a, b, k); // Интеграл с удвоенным количеством интервалов
-                k *= 2; // Увеличиваем количество интервалов вдвое
+                sum = result;
+                result = 0;
+                intervalCount *= 2;
                 h /= 2;
-                if (RungeRule(Sh, Shr, epsilon, 2, 4)) // Проверяем правило Рунге
+                k++;
+                for (int i = 0; i < intervalCount; i++)
                 {
-                    Console.Write("Шаг остановки = " + h);
-                    Console.WriteLine("Counter = " + counter);
-                    return Shr; // Если правило выполняется, возвращаем значение интеграла
+                    double low = a + i * h;
+                    double up = low + h;
+                    result += Simpson(low, up);
                 }
-                counter++;
-                Sh = Shr; // Если не выполняется, сохраняем новое значение интеграла для следующей итерации
             }
+            Console.Write("Шаг остановки = " + h);
+            return result;
         }
 
         static void Main(string[] args)
@@ -191,13 +131,13 @@ namespace YourNamespace
 
             double a = 5;
             double b = 15;
-            double eps = 1e-3;
+            double eps = 1e-4;
 
             double h = (b - a);
             const double r = 2;
 
             double result;
-            Console.WriteLine("Метод левых прямоугольников:\n");
+            Console.WriteLine("Метод правых прямоугольников:\n");
             result = RightRec(eps, r, h, a, b);
             Console.WriteLine("\nРезультат: " + result + "\n");
 
@@ -206,9 +146,8 @@ namespace YourNamespace
             Console.WriteLine("\nРезультат: " + result + "\n");
 
             Console.WriteLine("Метод Ньютона-Котеса 3-го порядка:\n");
-            result = NewtonCotes(eps, r, h, a, b);
-            //5result = IntegralWithAccuracy(a, b, eps);
-            Console.WriteLine("\nРезультат: " + result + "\n");
+            result = NewtonCotes3(a, b, r, eps);
+            Console.WriteLine("\nРезультат: " + result);
         }
     }
 }
