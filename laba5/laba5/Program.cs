@@ -2,8 +2,6 @@
 {
     class Program
     {
-        public const int n = 1000;
-
         // Функция
         static double Func(double x)
         {
@@ -62,7 +60,7 @@
             }
 
             //Процесс уменьшения шага для достижения заданной точности
-            while (!RungeRule(sum, sumResult, epsilon, r, 1)) // Порядок точности равен 1
+            while (!RungeRule(sum, sumResult, epsilon, r, 2)) // Порядок точности равен 1
             {
                 x = (a + a + h) / 2;
                 sum = sumResult;
@@ -85,7 +83,6 @@
             // Две дополнительные точки (n+1), n = 3
             double mid = a + h;
             double mid2 = mid + h;
-            // Результат минус погрешность (3/80*h^5)
             double res = (3 * h / 8) * (Func(a) + 3 * Func(mid) + 3 * Func(mid2) + Func(b)) - 3 * Math.Pow(h, 5) / 80;
             return res;
         }

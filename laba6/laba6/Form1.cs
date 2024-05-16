@@ -62,12 +62,21 @@ namespace laba6
 
                 double k1 = h * DifferentialEquation(x, y);
                 double k2 = h * DifferentialEquation(x + h / 3, y + k1 / 3);
-                double k3 = h * DifferentialEquation(x + h / 3, y + k1 / 6 + k2 / 6);
+                double k3 = h * DifferentialEquation(x + h / 3, y + k1 / 3 + k2 / 6);
                 double k4 = h * DifferentialEquation(x + h / 2, y + k1 / 3 + k3 / 3);
-                double k5 = h * DifferentialEquation(x + h, y + k1 / 2 - k3 + k4 * 3 / 2);
+                double k5 = h * DifferentialEquation(x + h, y + k1 / 2 - k3 + 2 * k4);
 
-                y += (k1 + 4 * k4 + k5) / 6;
-                x += h;
+                double localErr = Math.Abs((k1 / 6 + (2 * k4 + k5) / 3) - (k1 / 6 + k4 / 2 + k5 / 3));
+
+                if (localErr <= h * 32)
+                {
+                    y += k1 / 6 + (2 * k4 + k5) / 3;
+                    x += h;
+                }
+                else
+                {
+                    h /= 2; // уменьшение шага интегрирования
+                }
             }
 
             PlotGraph(xValues, yValues, Color.Red, "Метод Рунге-Кутты-Мерсона");
@@ -103,7 +112,7 @@ namespace laba6
             List<double> xValues = new List<double>();
             List<double> yValues = new List<double>();
 
-            // Используем метод Рунге-Кутты для вычисления первых четырех k точек
+            // Используем метод Рунге-Кутты для вычисления первых четырех точек
             double x = x0;
             double y = y0;
             double k1, k2, k3, k4;
@@ -122,23 +131,24 @@ namespace laba6
                 yValues.Add(y);
             }
 
-            // Решение методом Адамса
+            // Применяем метод Адамса для последующих точек
             while (x <= xn)
             {
-                double f = DifferentialEquation(x, y);
+                double f0 = DifferentialEquation(x, y);
+                double f1 = DifferentialEquation(x - h, yValues[yValues.Count - 1]);
+                double f2 = DifferentialEquation(x - 2 * h, yValues[yValues.Count - 2]);
+                double f3 = DifferentialEquation(x - 3 * h, yValues[yValues.Count - 3]);
 
-                double nextY = y + h * (55 * f - 59 * DifferentialEquation(x - h, yValues[yValues.Count - 1]) + 37 * DifferentialEquation(x - 2 * h, yValues[yValues.Count - 2]) - 9 * DifferentialEquation(x - 3 * h, yValues[yValues.Count - 3])) / 24;
+                double nextY = y + h * (55 * f0 - 59 * f1 + 37 * f2 - 9 * f3) / 24;
                 x += h;
 
                 xValues.Add(x);
                 yValues.Add(nextY);
 
                 y = nextY;
-                yValues.RemoveAt(0);
             }
 
-            PlotGraph(xValues, yValues, Color.Orange, "Метод Адамса 4-го порядка)");
-            
+            PlotGraph(xValues, yValues, Color.Orange, "Метод Адамса 4-го порядка");
         }
 
         // Построение графика
@@ -181,13 +191,26 @@ namespace laba6
                 exactYValues.Add(ExactSolution(x, y0));
             }
 
-            PlotGraph(exactXValues, exactYValues, Color.Black, "Точное решение");
-
-            // Решение задачи различными методами и построение графиков этих решений
-            EulerMethod(x0, y0, xn, h);
-            RungeKuttaMersonMethod(x0, y0, xn, h);
-            ModifiedEulerMethod(x0, y0, xn, h);
-            AdamsMethod(x0, y0, xn, h);
+            if (checkBox1.Checked)
+            {
+                PlotGraph(exactXValues, exactYValues, Color.Black, "Точное решение");
+            }
+            if (checkBox2.Checked)
+            {
+                EulerMethod(x0, y0, xn, h);
+            }
+            if (checkBox3.Checked)
+            {
+                ModifiedEulerMethod(x0, y0, xn, h);
+            }
+            if (checkBox4.Checked)
+            {
+                RungeKuttaMersonMethod(x0, y0, xn, h);
+            }
+            if (checkBox5.Checked)
+            {
+                AdamsMethod(x0, y0, xn, h);
+            }
         }
     }
 }
