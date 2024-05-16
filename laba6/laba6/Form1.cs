@@ -134,7 +134,7 @@ namespace laba6
             // Применяем метод Адамса для последующих точек
             while (x <= xn)
             {
-                double f0 = DifferentialEquation(x, y);
+                double f0 = DifferentialEquation(x, y); // это говно заранее считается и так, переделать
                 double f1 = DifferentialEquation(x - h, yValues[yValues.Count - 1]);
                 double f2 = DifferentialEquation(x - 2 * h, yValues[yValues.Count - 2]);
                 double f3 = DifferentialEquation(x - 3 * h, yValues[yValues.Count - 3]);
