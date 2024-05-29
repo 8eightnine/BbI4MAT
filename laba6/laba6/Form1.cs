@@ -22,7 +22,7 @@ namespace laba6
         // Точное решение
         private double ExactSolution(double x, double y0)
         {
-            return 0.5 * (Math.Sin(x) + 2 * y0 * Math.Exp(-2 * x));
+            return (2 * Math.Sin(x) - Math.Cos(x)) / 5 + y0 / Math.Exp(2 * x);
         }
 
         // Метод Эйлера
@@ -111,15 +111,20 @@ namespace laba6
         {
             List<double> xValues = new List<double>();
             List<double> yValues = new List<double>();
+            List<double> fValues = new List<double>(); // Список для хранения значений производной
 
             // Используем метод Рунге-Кутты для вычисления первых четырех точек
             double x = x0;
             double y = y0;
             double k1, k2, k3, k4;
 
+            xValues.Add(x);
+            yValues.Add(y);
+            fValues.Add(DifferentialEquation(x, y)); // Значение производной в начальной точке
+
             for (int i = 0; i < 3; i++)
             {
-                k1 = h * DifferentialEquation(x, y);
+                k1 = h * fValues[i];
                 k2 = h * DifferentialEquation(x + h / 2, y + k1 / 2);
                 k3 = h * DifferentialEquation(x + h / 2, y + k2 / 2);
                 k4 = h * DifferentialEquation(x + h, y + k3);
@@ -129,21 +134,23 @@ namespace laba6
 
                 xValues.Add(x);
                 yValues.Add(y);
+                fValues.Add(DifferentialEquation(x, y)); // Сохраняем значение производной
             }
 
             // Применяем метод Адамса для последующих точек
             while (x <= xn)
             {
-                double f0 = DifferentialEquation(x, y); // это говно заранее считается и так, переделать
-                double f1 = DifferentialEquation(x - h, yValues[yValues.Count - 1]);
-                double f2 = DifferentialEquation(x - 2 * h, yValues[yValues.Count - 2]);
-                double f3 = DifferentialEquation(x - 3 * h, yValues[yValues.Count - 3]);
+                double f0 = fValues[fValues.Count - 1];
+                double f1 = fValues[fValues.Count - 2];
+                double f2 = fValues[fValues.Count - 3];
+                double f3 = fValues[fValues.Count - 4];
 
                 double nextY = y + h * (55 * f0 - 59 * f1 + 37 * f2 - 9 * f3) / 24;
                 x += h;
 
                 xValues.Add(x);
                 yValues.Add(nextY);
+                fValues.Add(DifferentialEquation(x, nextY)); // Сохраняем значение производной
 
                 y = nextY;
             }
